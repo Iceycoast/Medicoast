@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Iceycoast/Iceycoast/main/banner.png" alt="Medicoast banner" />
-</p>
 
 <h1 align="center">Medicoast – Modular Health Tracker System</h1>
 <h4 align="center">🚀 Rebuilding the 40-Step Health App from Scratch – Now with SQL, Modular Design & Flet UI</h4>
