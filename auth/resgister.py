@@ -44,9 +44,10 @@ def register_user():
             continue
         
         password = input("Please choose a password: ").strip()
+        hashed = hash_password(password)
         created_at = datetime.now().isoformat()
 
-        success = create_user(username, first_name, last_name, age, password, created_at)
+        success = create_user(username, first_name, last_name, age, hashed, created_at)
 
         if success:
             break
