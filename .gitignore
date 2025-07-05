@@ -1,7 +1,6 @@
 .env
 .DS_Store
 .vscode/settings.json
-trackers/water_logger/logic.py
 auth/__pycache__/login.cpython-313.pyc
 auth/__pycache__/register.cpython-313.pyc
 .gitignore
