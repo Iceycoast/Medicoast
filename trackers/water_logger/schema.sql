@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS water_logs(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    date TEXT NOT NULL,
+    time TEXT NOT NULL, 
+    quantity INTEGER NOT NULL
+);
