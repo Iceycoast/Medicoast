@@ -1,12 +1,11 @@
-from pydantic import BaseModel, Field
-from typing import Optional, final
+from pydantic import BaseModel, Field, field_validator
+from typing import Optional
 from datetime import datetime, timezone
 from fastapi import HTTPException, status
-from pydantic_core.core_schema import none_schema
 from app.db.database import get_connection
+from app.utils.validators import validate_date_format, validate_time_format
 import sqlite3
 
-from app.users.logic import UserResponse
 
 
 class WaterLogBase(BaseModel):
@@ -14,17 +13,26 @@ class WaterLogBase(BaseModel):
 
 class WaterLogCreate(WaterLogBase):
     user_id: int
+    date: str = Field(..., description= "Enter the Date (dd-mm-yyyy)")
+    time: str = Field(..., description= "Enter the Time (HH-MM)(24 Hour)")
+
+    @field_validator("date")
+    @classmethod
+    def validate_date_format(cls, v):
+        return validate_date_format(v)
+
+    @field_validator("time")
+    @classmethod
+    def validate_time_format(cls, v):
+        return validate_time_format(v)
 
 class WaterLogResponse(WaterLogBase):
     log_id: int
     user_id: int
     date: str
     time: str
-    created_at: datetime
-
     class Config:
         orm_mode = True
-        json_encoders = {datetime: lambda v: v.isoformat()}
 
 
 
@@ -33,8 +41,8 @@ def add_water_log(log: WaterLogCreate) -> WaterLogResponse:
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
-    date = datetime.now().strftime("%d-%m-%Y")
-    time = datetime.now().strftime("%H:%M")
+    date = log.date
+    time = log.time
     created_at = datetime.now(timezone.utc).isoformat()
     try:
         cursor.execute('''
@@ -51,8 +59,9 @@ def add_water_log(log: WaterLogCreate) -> WaterLogResponse:
             user_id= log.user_id,
             quantity_ml= log.quantity_ml,
             date = date, 
-            time = time,
-            created_at= datetime.fromisoformat(created_at))
+            time = time
+
+        )
     except sqlite3.IntegrityError:
         raise HTTPException(status_code=400, detail="Invalid data or user_id does not exist")
     finally:
@@ -79,8 +88,8 @@ def get_water_logs_by_user(user_id:int, date:Optional[str]= None) -> list[WaterL
             log_id= row['log_id'],
             quantity_ml= row['quantity_ml'],
             date= row['date'],
-            time = row['time'],
-            created_at=datetime.fromisoformat(row["created_at"])
+            time = row['time']
+
         ) for row in rows
         ]
     finally:
