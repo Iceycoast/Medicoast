@@ -1,15 +1,16 @@
 import hashlib
+import sqlite3
 from datetime import datetime, timezone
 from pydantic import BaseModel, Field
-import sqlite3
-from app.db.database import get_connection
 from fastapi import HTTPException, status
 from typing import Optional
+from app.db.database import get_connection
 
 
+# ---------------- Pydantic Models ---------------- #
 
 class UserBase(BaseModel):
-    first_name: str = Field(..., min_length= 1)
+    first_name: str = Field(..., min_length=1)
     last_name: Optional[str] = None
     age: int = Field(..., gt=12, lt=90)
 
@@ -19,43 +20,29 @@ class UserCreate(UserBase):
 
 class UserResponse(UserBase):
     user_id: int
-    username : str
-    created_at : datetime
+    username: str
+    created_at: datetime
 
     class Config:
         orm_mode = True
-        json_encoders = { datetime: lambda v : v.isoformat()}
+        json_encoders = {datetime: lambda v: v.isoformat()}
 
 class UserLogin(BaseModel):
     username: str
-    password : str
+    password: str
 
 
-def hash_password(password:str) -> str:
+# ---------------- Utility Functions ---------------- #
+
+def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode()).hexdigest()
 
-def init_user_table():
-    conn = get_connection()
-    cursor = conn.cursor()
 
-    cursor.execute('''
-                CREATE TABLE IF NOT EXISTS users(
-                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
-                first_name TEXT NOT NULL,
-                last_name TEXT,
-                age INTEGER NOT NULL,
-                password TEXT NOT NULL,
-                created_at TEXT NOT NULL)
-    
-    ''')
-    conn.commit()
-    conn.close()
-
-
+# ---------------- Logic Functions ---------------- #
 
 def register_user(user: UserCreate) -> UserResponse:
     conn = get_connection()
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     hashed_pwd = hash_password(user.password)
@@ -63,13 +50,16 @@ def register_user(user: UserCreate) -> UserResponse:
 
     try:
         cursor.execute('''
-                INSERT INTO users (username, first_name, last_name, age, password, created_at)
-                VALUES (?, ?, ?, ?, ?, ?)''',
-                (user.username, user.first_name, user.last_name, user.age, hashed_pwd, created_at))
+            INSERT INTO users (username, first_name, last_name, age, password, created_at)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', (user.username, user.first_name, user.last_name, user.age, hashed_pwd, created_at))
+
         conn.commit()
         user_id = cursor.lastrowid
+
         if user_id is None:
             raise HTTPException(status_code=500, detail="Failed to retrieve user ID after registration")
+
         return UserResponse(
             user_id=user_id,
             username=user.username,
@@ -78,19 +68,21 @@ def register_user(user: UserCreate) -> UserResponse:
             age=user.age,
             created_at=datetime.fromisoformat(created_at)
         )
+
     except sqlite3.IntegrityError:
-        raise HTTPException(status_code=400, detail="username already exists")
+        raise HTTPException(status_code=400, detail="Username already exists")
+
     finally:
         conn.close()
 
 
 def login_user(data: UserLogin) -> UserResponse:
-
     conn = get_connection()
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     try:
-        cursor.execute("SELECT * FROM users WHERE username = ? ", (data.username,))
+        cursor.execute("SELECT * FROM users WHERE username = ?", (data.username,))
         row = cursor.fetchone()
 
         if not row:
@@ -98,16 +90,16 @@ def login_user(data: UserLogin) -> UserResponse:
 
         hashed_pwd = hash_password(data.password)
 
-        if row[5] != hashed_pwd:
+        if row["password"] != hashed_pwd:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")
 
         return UserResponse(
-                user_id= row[0],
-                username= row[1],
-                first_name= row[2],
-                last_name= row[3],
-                age = row[4],
-                created_at= datetime.fromisoformat(row[6])
+            user_id=row["user_id"],
+            username=row["username"],
+            first_name=row["first_name"],
+            last_name=row["last_name"],
+            age=row["age"],
+            created_at=datetime.fromisoformat(row["created_at"])
         )
 
     finally:

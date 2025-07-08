@@ -1,3 +1,15 @@
 .env
 .DS_Store
 .vscode/settings.json
+app/users/__pycache__/routes.cpython-313.pyc
+app/users/__pycache__/logic.cpython-313.pyc
+app/db/__pycache__/database.cpython-313.pyc
+app/db/medicoast.db
+app/__pycache__/main.cpython-313.pyc
+.gitignore
+app/__pycache__/config.cpython-313.pyc
+app/trackers/water_tracker/__pycache__/routes.cpython-313.pyc
+app/trackers/water_tracker/__pycache__/logic.cpython-313.pyc
+app/db/__pycache__/init_db.cpython-313.pyc
+.gitignore
+.gitignore
