@@ -38,7 +38,6 @@ class WaterLogResponse(WaterLogBase):
 
 def add_water_log(log: WaterLogCreate) -> WaterLogResponse:
     conn = get_connection()
-    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     date = log.date
@@ -97,7 +96,6 @@ def get_water_logs_by_user(user_id:int, date:Optional[str]= None) -> list[WaterL
 
 def delete_water_log(log_id:int, user_id:int) -> str:
     conn = get_connection()
-    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     try:
