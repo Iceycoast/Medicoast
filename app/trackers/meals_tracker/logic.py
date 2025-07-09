@@ -14,7 +14,7 @@ class MealsLogsBase(BaseModel):
 
 class MealsLogsCreate(MealsLogsBase):
     user_id: int 
-    date: str = Field(..., description= "Enter the Date (dd-mm-yyyy)")
+    date: str = Field(..., description= "Enter the Date (DD-MM-YYYY)")
     time: str = Field(..., description= "Enter the Time (HH-MM)(24 Hour)")
 
     @field_validator("date")
@@ -74,7 +74,7 @@ def create_meals_logs(log: MealsLogsCreate) -> MealsLogsResponse:
     finally:
         conn.close()
 
-def get_logs_by_user(user_id: int, date: Optional[str]=None) -> list[MealsLogsResponse]:
+def get_meals_logs_by_user(user_id: int, date: Optional[str]=None) -> list[MealsLogsResponse]:
     conn = get_connection()
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
