@@ -26,8 +26,6 @@ class MoodLogCreate(MoodLogsBase):
 class MoodLogResponse(MoodLogsBase):
     log_id : int
     user_id : int
-    mood : str
-    note : str
     ai_sentiment : str
     ai_suggestion : str
     date: str
