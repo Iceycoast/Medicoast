@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS mood_logs(
     ai_suggestion TEXT NOT NULL,
     date TEXT NOT NULL,
     created_at TEXT NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES user(user_id)
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
