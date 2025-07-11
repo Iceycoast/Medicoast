@@ -1,4 +1,3 @@
-from pydantic import ValidationError
 from datetime import datetime
 
 def validate_date_format(v:str) -> str:
