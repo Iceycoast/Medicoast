@@ -2,9 +2,9 @@ from datetime import datetime
 
 def validate_date_format(v:str) -> str:
     try:
-        datetime.strptime(v,"%d-%m-%Y")
+        datetime.strptime(v,"%Y-%m-%d")
     except ValueError:
-        raise ValueError ("Date must be in this format dd-mm-yyyy")
+        raise ValueError ("Date must be in this format YYYY-MM-DD")
     return v
 
 def validate_time_format(v:str) -> str:

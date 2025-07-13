@@ -3,7 +3,7 @@ from app.utils.validators import validate_date_format
 
 class SleepLogBase(BaseModel):
     user_id : int
-    date : str = Field(..., description="Please enter the date: (DD-MM-YYYY)")
+    date : str = Field(..., description="Please enter the date: (YYYY-MM-DD)")
     sleep_time : str = Field(..., description="Please enter the time you slept: (HH:MM)(24Hr)")
     wake_time : str = Field(..., description="Please enter the time you woke up: (HH:MM)(24Hr)")
 

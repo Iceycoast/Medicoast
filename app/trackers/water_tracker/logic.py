@@ -13,7 +13,7 @@ class WaterLogBase(BaseModel):
 
 class WaterLogCreate(WaterLogBase):
     user_id: int
-    date: str = Field(..., description= "Enter the Date (dd-mm-yyyy)")
+    date: str = Field(..., description= "Enter the Date (YYYY-MM-DD)")
     time: str = Field(..., description= "Enter the Time (HH-MM)(24 Hour)")
 
     @field_validator("date")

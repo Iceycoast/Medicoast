@@ -13,7 +13,7 @@ class BMILogsBase(BaseModel):
 
 class BMILogsCreate(BMILogsBase):
     user_id : int
-    date : str = Field(..., description="Enter the date (DD-MM-YYYY)")
+    date : str = Field(..., description="Enter the date (YYYY-MM-DD)")
 
     @field_validator("date")
     @classmethod

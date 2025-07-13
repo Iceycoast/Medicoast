@@ -1,6 +1,5 @@
 from pydantic import BaseModel, model_validator, Field, field_validator
 from typing import Optional
-from datetime import datetime, date
 from app.utils.validators import validate_date_format
 
 
@@ -16,7 +15,7 @@ class MoodLogsBase(BaseModel):
 
 class MoodLogCreate(MoodLogsBase):
     user_id: int
-    date : str = Field(..., description="Please enter the Date (DD-MM-YYYY)")
+    date : str = Field(..., description="Please enter the Date (YYYY-MM-DD)")
 
     @field_validator('date')
     @staticmethod

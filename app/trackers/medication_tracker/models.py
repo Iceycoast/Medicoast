@@ -13,7 +13,7 @@ class MedicationLogBase(BaseModel):
 
 class MedicationLogCreate(MedicationLogBase):
     user_id : int
-    date: str = Field(..., description="Enter the Date (DD-MM-YYYY)")
+    date: str = Field(..., description="Enter the Date (YYYY-MM-DD)")
 
     @field_validator('date')
     @staticmethod
