@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field, field_validator
 from app.utils.validators import validate_date_format, validate_time_format
 
 class SleepLogBase(BaseModel):
-    user_id : int
     date : str = Field(..., description="Please enter the date: (YYYY-MM-DD)")
     sleep_time: str = Field(..., description="Please enter the time you slept: (HH:MM AM/PM)")
     wake_time: str = Field(..., description="Please enter the time you woke up: (HH:MM AM/PM)")
@@ -18,10 +17,11 @@ class SleepLogBase(BaseModel):
         return validate_time_format(v)
 
 class SleepLogCreate(SleepLogBase):
-    pass    
+    user_id : int
 
 class SleepLogResponse(SleepLogBase):
     log_id : int
+    user_id : int
     duration : float
         
     model_config = {

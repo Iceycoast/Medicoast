@@ -18,8 +18,6 @@ class BMILogsCreate(BMILogsBase):
 class BMILogsResponse(BMILogsBase):
     log_id: int
     user_id: int
-    weight_kg: float
-    height_cm: float
     bmi: float
     category: str
     date: str
