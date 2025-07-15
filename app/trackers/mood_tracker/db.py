@@ -9,9 +9,9 @@ def insert_mood_log(log: MoodLogCreate, ai_sentiment: str, ai_suggestion: str, c
 
     try:
         cursor.execute('''
-                INSERT INTO mood_logs (user_id, mood, note, ai_sentiment, ai_suggestion, date, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?)''',
-                (log.user_id, log.mood, log.note, ai_sentiment, ai_suggestion, log.date, created_at))
+                INSERT INTO mood_logs (user_id, mood, note, ai_sentiment, ai_suggestion, date, time, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)''',
+                (log.user_id, log.mood, log.note, ai_sentiment, ai_suggestion, log.date, log.time, created_at))
         conn.commit()
         log_id = cursor.lastrowid
 
@@ -41,8 +41,8 @@ def fetch_mood_logs_by_user(user_id: int, date: Optional[str]= None) -> list[Moo
             cursor.execute("SELECT * FROM mood_logs WHERE user_id = ?",(user_id,))
 
         rows = cursor.fetchall()
-        columns =  [col[0] for col in cursor.description]
-        return [MoodLogResponse(**dict(zip(columns, row)))for row in rows]
+
+        return [MoodLogResponse.model_validate(row)for row in rows]
     
     finally:
         conn.close()

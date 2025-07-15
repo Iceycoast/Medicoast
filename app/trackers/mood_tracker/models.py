@@ -1,6 +1,6 @@
 from pydantic import BaseModel, model_validator, Field, field_validator
 from typing import Optional
-from app.utils.validators import validate_date_format
+from app.utils.validators import validate_date_format, validate_time_format
 
 
 class MoodLogsBase(BaseModel):
@@ -15,19 +15,33 @@ class MoodLogsBase(BaseModel):
 
 class MoodLogCreate(MoodLogsBase):
     user_id: int
-    date : str = Field(..., description="Please enter the Date (YYYY-MM-DD)")
+    date : Optional[str] = Field(default= None, description="Optional. Provide date as (YYYY-MM-DD)")
+    time : Optional[str] = Field(default= None, description="Optional. Provide the time as (HH:MM AM/PM)")
 
     @field_validator('date')
     @staticmethod
-    def validate_date_format(v:str) -> str:
-        return validate_date_format(v)
+    def validate_date_format(v:Optional[str]) -> Optional[str]:
+        if v is not None:
+            return validate_date_format(v)
+        return v 
     
+    
+    @field_validator('time')
+    @staticmethod
+    def validate_time_format(v:Optional[str]) -> Optional[str]:
+        if v is not None:
+            return validate_time_format(v)
+        return v 
+
+
 class MoodLogResponse(MoodLogsBase):
     log_id : int
     user_id : int
     ai_sentiment : str
     ai_suggestion : str
     date: str
+    time : str
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes":True
+    }

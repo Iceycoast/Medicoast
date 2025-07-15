@@ -10,8 +10,13 @@ def create_mood_log(log:MoodLogCreate) -> MoodLogResponse:
     try:
         created_at = datetime.now(timezone.utc).isoformat()
 
-        ai_sentiment, ai_suggestion = get_ai_sentiment_and_suggestion(log.mood, log.note)
+        if log.date is None:
+            log.date = datetime.now().strftime("%Y-%m-%d")
 
+        if log.time is None:
+            log.time = datetime.now().strftime("%H:%M")
+
+        ai_sentiment, ai_suggestion = get_ai_sentiment_and_suggestion(log.mood, log.note)
         log_id  = db.insert_mood_log(log, ai_sentiment, ai_suggestion, created_at)
 
         return MoodLogResponse(
@@ -21,7 +26,8 @@ def create_mood_log(log:MoodLogCreate) -> MoodLogResponse:
             note=log.note,
             ai_sentiment=ai_sentiment,
             ai_suggestion=ai_suggestion,
-            date=log.date
+            date=log.date,
+            time= log.time
         )
     except ValueError as ve:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(ve))

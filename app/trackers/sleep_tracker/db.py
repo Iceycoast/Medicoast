@@ -1,8 +1,9 @@
 import sqlite3
 from typing import Optional
 from app.db.database import get_connection
+from .models import SleepLogCreate
 
-def insert_sleep_log(user_id: int, date: str, sleep_time: str, wake_time: str, duration: float, created_at: str) -> int:
+def insert_sleep_log(log: SleepLogCreate, duration: float, created_at: str) -> int:
     
     conn = get_connection()
     cursor = conn.cursor()
@@ -11,7 +12,7 @@ def insert_sleep_log(user_id: int, date: str, sleep_time: str, wake_time: str, d
         cursor.execute('''
                 INSERT INTO sleep_logs(user_id, date, sleep_time, wake_time, duration, created_at)
                 VALUES (?, ?, ?, ?, ?, ?)''',
-                (user_id, date, sleep_time, wake_time, duration, created_at))
+                (log.user_id, log.date, log.sleep_time, log.wake_time, duration, created_at))
         conn.commit()
         log_id = cursor.lastrowid
 
