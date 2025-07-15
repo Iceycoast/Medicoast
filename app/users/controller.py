@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 from datetime import datetime, timezone
-from typing import Optional
 from .models import UserCreate, UserLogin, UserResponse
 from .utils import hash_password, verify_password
 from . import db 

@@ -15,7 +15,7 @@ def create_log(log: SleepLogCreate):
 def get_logs(user_id: int, date: Optional[str]=None):
     return controller.get_sleep_logs(user_id, date)
 
-@router.delete("/log/{log_id}")
+@router.delete("/log/{log_id}", response_model=dict)
 def delete_log(log_id: int, user_id: int):
     message = controller.delete_sleep_log(log_id, user_id)
     return {"message": message}

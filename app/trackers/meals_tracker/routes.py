@@ -1,17 +1,23 @@
-from fastapi import APIRouter, status, HTTPException
+from fastapi import APIRouter
 from typing import Optional
-from app.trackers.meals_tracker.logic import (get_meals_logs_by_user, create_meals_logs, delete_meal_log, MealsLogsCreate, MealsLogsResponse)
+from .models import MealLogCreate, MealLogResponse
+from . import controller
 
-router = APIRouter(prefix="/meals",tags=["Meal Tracker"])
 
-@router.post("/log", response_model=MealsLogsResponse, status_code=status.HTTP_201_CREATED)
-def log_meal(meal_log: MealsLogsCreate):
-    return create_meals_logs(meal_log)
+router = APIRouter(prefix="/meals", tags=["Meal Tracker"])
 
-@router.get("/logs", response_model=list[MealsLogsResponse])
-def fetch_meal_logs(user_id: int, date:Optional[str] = None):
-    return get_meals_logs_by_user(user_id, date)
 
-@router.delete("/log/{log_id}", status_code=status.HTTP_200_OK)
-def delete_log(log_id: int, user_id:int):
-    return delete_meal_log(log_id, user_id)
+@router.post("/log", response_model=MealLogResponse)
+def create_meal_log(log: MealLogCreate):
+    return controller.create_meal_log(log)
+
+
+@router.get("/logs", response_model=list[MealLogResponse])
+def get_meal_logs(user_id: int, date: Optional[str] = None):
+    return controller.get_meal_logs(user_id, date)
+
+
+@router.delete("/log/{log_id}")
+def delete_meal_log(log_id: int, user_id: int):
+    controller.delete_meal_log(log_id, user_id)
+    return {"message": "Meal log deleted successfully."}
