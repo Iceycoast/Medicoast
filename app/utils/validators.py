@@ -9,10 +9,10 @@ def validate_date_format(v:str) -> str:
 
 def validate_time_format(v:str) -> str:
     try:
-        datetime.strptime(v,"%H:%M")
+        t = datetime.strptime(v.strip(), "%I:%M %p")
+        return t.strftime("%H:%M")
     except ValueError:
-        raise ValueError ("Time must be in this format HH:MM (24-hr)")
-    return v
+        raise ValueError ("Time must be in this format HH:MM AM/PM.")
 
 def validate_male_or_female(v:str) -> str:
     v = v.strip().lower()
