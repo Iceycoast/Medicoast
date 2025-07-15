@@ -28,7 +28,12 @@ def create_medication_log(log:MedicationLogCreate) -> MedicationLogResponse:
 def get_medication_logs(user_id: int, date: Optional[str]= None) -> list[MedicationLogResponse]:
     
     try:
-        return db.fetch_medication_logs_by_user(user_id, date)
+        logs =  db.fetch_medication_logs_by_user(user_id, date)
+
+        if not logs:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No medication logs found.")
+
+        return logs
     
     except RuntimeError as re:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(re))

@@ -4,7 +4,7 @@ from app.utils.validators import validate_date_format, validate_time_format
 class MedicationLogBase(BaseModel):
     medication_name : str = Field(..., description="Enter the name of the Medication.")
     dosage : str = Field(..., description="Enter the Dosage of the Medication.")
-    time : str = Field(..., description="Enter the Time of the Medication (HH:MM)(24hr)")
+    time: str = Field(..., description="Enter the Time (HH:MM AM/PM, e.g., 07:30 PM)")
 
     @field_validator('time')
     @staticmethod
@@ -25,5 +25,6 @@ class MedicationLogResponse(MedicationLogBase):
     user_id : int 
     date : str 
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }

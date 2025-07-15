@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 from fastapi import HTTPException, status
 from .models import SleepLogCreate, SleepLogResponse
-from .utils import calculate_sleep_duration, map_row_to_sleep_response
+from .utils import calculate_sleep_duration
 from . import db
 from typing import Optional
 
@@ -10,16 +10,14 @@ def create_sleep_log(log: SleepLogCreate) -> SleepLogResponse:
     try:
         duration = calculate_sleep_duration(log.sleep_time, log.wake_time)
         created_at = datetime.now(timezone.utc).isoformat()
-
-        data = log.model_dump()
-        data["duration"] = duration
-        data["created_at"] = created_at
-
-        log_id = db.insert_sleep_log(**data)
+        log_id = db.insert_sleep_log(log, duration, created_at)
 
         return SleepLogResponse(
             log_id= log_id,
-            **log.model_dump(),
+            user_id= log.user_id,
+            date= log.date,
+            sleep_time= log.sleep_time,
+            wake_time= log.wake_time,
             duration= duration
         )
     except ValueError as e:
@@ -30,19 +28,24 @@ def create_sleep_log(log: SleepLogCreate) -> SleepLogResponse:
     
 def get_sleep_logs(user_id: int, date:Optional[str] = None) -> list[SleepLogResponse]:
 
-    rows = db.fetch_sleep_logs_by_user(user_id, date)
+    try:
+        logs =  db.fetch_sleep_logs_by_user(user_id, date)
 
-    if not rows:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No sleep logs found.")
+        if not logs:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No sleep logs found.")
 
-    return [map_row_to_sleep_response(row) for row in rows]
+        return logs
+    
+    except RuntimeError as re:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(re))
 
 
-def delete_sleep_log(log_id: int, user_id: int) -> str:
+
+def delete_sleep_log(log_id: int, user_id: int) -> dict:
 
     deleted = db.delete_sleep_log(log_id, user_id)
 
     if not deleted:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Sleep Log not found.")
     
-    return "Sleep Log Deleted Successfully."
+    return {"message": "Sleep Log Deleted Successfully."}

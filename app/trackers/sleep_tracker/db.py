@@ -1,7 +1,7 @@
 import sqlite3
 from typing import Optional
 from app.db.database import get_connection
-from .models import SleepLogCreate
+from .models import SleepLogCreate, SleepLogResponse
 
 def insert_sleep_log(log: SleepLogCreate, duration: float, created_at: str) -> int:
     
@@ -30,7 +30,7 @@ def insert_sleep_log(log: SleepLogCreate, duration: float, created_at: str) -> i
         conn.close()
 
 
-def fetch_sleep_logs_by_user(user_id: int, date: Optional[str] = None  ) -> list[sqlite3.Row]:
+def fetch_sleep_logs_by_user(user_id: int, date: Optional[str] = None  ) -> list[SleepLogResponse]:
 
     conn = get_connection()
     conn.row_factory = sqlite3.Row
@@ -43,7 +43,7 @@ def fetch_sleep_logs_by_user(user_id: int, date: Optional[str] = None  ) -> list
             cursor.execute("SELECT * FROM sleep_logs WHERE user_id = ?", (user_id,))
 
         rows = cursor.fetchall()
-        return rows
+        return [SleepLogResponse.model_validate(row) for row in rows]
     finally:
         conn.close()
 

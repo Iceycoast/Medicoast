@@ -38,8 +38,12 @@ def create_mood_log(log:MoodLogCreate) -> MoodLogResponse:
 
 def get_mood_logs(user_id: int, date: Optional[str] = None) -> list[MoodLogResponse]:
     try:
-        return db.fetch_mood_logs_by_user(user_id=user_id, date=date)
+        logs =  db.fetch_mood_logs_by_user(user_id=user_id, date=date)
 
+        if not logs:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No Mood logs found.")
+        return logs
+    
     except RuntimeError as re:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(re))
     

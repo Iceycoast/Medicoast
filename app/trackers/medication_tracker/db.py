@@ -41,8 +41,7 @@ def fetch_medication_logs_by_user(user_id: int, date:Optional[str]=None) -> list
             cursor.execute("SELECT * FROM medication_logs WHERE user_id = ? ORDER BY date DESC, time DESC" , (user_id,))
 
         rows = cursor.fetchall()
-        columns = [col[0] for col in cursor.description]
-        return [MedicationLogResponse(**dict(zip(columns, row))) for row in rows]
+        return [MedicationLogResponse.model_validate(row) for row in rows]
     
     finally:
         conn.close()

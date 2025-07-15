@@ -39,15 +39,7 @@ def login_user(data:UserLogin) -> UserResponse:
     if not verify_password(data.password, user['password']):
         raise HTTPException(status_code=401, detail="Incorrect Password.")
     
-    return UserResponse(
-            user_id= user['user_id'],
-            username= user['username'],
-            first_name= user['first_name'],
-            last_name = user['last_name'],
-            age = user['age'],
-            gender= user['gender'],
-            email = user['email']
-        )
+    return UserResponse.model_validate(user)
     
         
     
