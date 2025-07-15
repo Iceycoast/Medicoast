@@ -1,6 +1,5 @@
 from app.db.database import get_connection
 from typing import Optional
-from datetime import datetime
 from .models import MoodLogCreate, MoodLogResponse
 import sqlite3
 
@@ -17,12 +16,11 @@ def insert_mood_log(log: MoodLogCreate, ai_sentiment: str, ai_suggestion: str, c
         log_id = cursor.lastrowid
 
         if log_id is None:
-            raise sqlite3.DatabaseError("Failed to retrieve the Log ID")
-        
+            raise sqlite3.DatabaseError("Failed to retrieve the log_id")
         return log_id
     
     except sqlite3.IntegrityError:
-        raise ValueError ("Invalid User ID or Duplicate Log.")
+        raise ValueError ("Invalid user_id or Duplicate Log.")
     
     except sqlite3.DatabaseError as e:
         raise RuntimeError (f"Database error while inserting Mood Log: {e}")

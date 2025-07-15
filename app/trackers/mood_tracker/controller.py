@@ -17,8 +17,8 @@ def create_mood_log(log:MoodLogCreate) -> MoodLogResponse:
         return MoodLogResponse(
             log_id=log_id,
             user_id=log.user_id,
-            mood=log.mood or "",
-            note=log.note or "",
+            mood=log.mood,
+            note=log.note,
             ai_sentiment=ai_sentiment,
             ai_suggestion=ai_suggestion,
             date=log.date
