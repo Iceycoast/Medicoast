@@ -66,3 +66,10 @@ app/users/__pycache__/models.cpython-313.pyc
 .gitignore
 app/users/__pycache__/db.cpython-313.pyc
 app/users/__pycache__/utils.cpython-313.pyc
+app/aggregator/__pycache__/__init__.cpython-313.pyc
+app/aggregator/__pycache__/ai_summary.cpython-313.pyc
+app/aggregator/__pycache__/constants.cpython-313.pyc
+app/aggregator/__pycache__/controller.cpython-313.pyc
+app/aggregator/__pycache__/models.cpython-313.pyc
+app/aggregator/__pycache__/routes.cpython-313.pyc
+app/aggregator/__pycache__/utils.cpython-313.pyc
