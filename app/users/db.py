@@ -50,3 +50,17 @@ def get_user_by_username(username: str) -> dict:
     
     finally:
         conn.close()
+
+
+def check_username_availability(username: str) -> bool:
+    """Check if a username is available (not already taken)"""
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT COUNT(*) FROM users WHERE username = ?", (username,))
+        count = cursor.fetchone()[0]
+        return count == 0  # True if username is available, False if taken
+    
+    finally:
+        conn.close()

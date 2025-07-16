@@ -39,7 +39,12 @@ def login_user(data:UserLogin) -> UserResponse:
         raise HTTPException(status_code=401, detail="Incorrect Password.")
     
     return UserResponse.model_validate(user)
-    
-        
-    
-        
+
+
+def check_username_availability(username: str) -> dict:
+    """Check if a username is available"""
+    try:
+        is_available = db.check_username_availability(username)
+        return {"available": is_available, "username": username}
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))

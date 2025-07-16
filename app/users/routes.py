@@ -11,3 +11,8 @@ def register(user:UserCreate):
 @router.post("/login", response_model= UserResponse)
 def login(data: UserLogin):
     return controller.login_user(data)
+
+
+@router.get("/check-username/{username}")
+def check_username(username: str):
+    return controller.check_username_availability(username)
