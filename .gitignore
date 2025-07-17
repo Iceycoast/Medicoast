@@ -53,15 +53,10 @@ app/trackers/water_tracker/__pycache__/controller.cpython-313.pyc
 app/users/__pycache__/controller.cpython-313.pyc
 app/trackers/bmi_tracker/__pycache__/db.cpython-313.pyc
 app/trackers/bmi_tracker/__pycache__/models.cpython-313.pyc
-<<<<<<< HEAD
-=======
-.gitignore
->>>>>>> JS-branch
 app/trackers/bmi_tracker/__pycache__/utils.cpython-313.pyc
 app/trackers/meals_tracker/__pycache__/db.cpython-313.pyc
 app/trackers/meals_tracker/__pycache__/models.cpython-313.pyc
 app/trackers/medication_tracker/__pycache__/db.cpython-313.pyc
-<<<<<<< HEAD
 app/trackers/medication_tracker/__pycache__/models.cpython-313.pyc
 app/trackers/medication_tracker/__pycache__/routes.cpython-313.pyc
 app/trackers/water_tracker/__pycache__/db.cpython-313.pyc
@@ -69,20 +64,3 @@ app/trackers/water_tracker/__pycache__/models.cpython-313.pyc
 app/users/__pycache__/db.cpython-313.pyc
 app/users/__pycache__/models.cpython-313.pyc
 app/users/__pycache__/utils.cpython-313.pyc
-=======
-app/trackers/medication_tracker/__pycache__/routes.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/db.cpython-313.pyc
-app/users/__pycache__/models.cpython-313.pyc
-.gitignore
-app/users/__pycache__/db.cpython-313.pyc
-app/users/__pycache__/utils.cpython-313.pyc
-app/aggregator/__pycache__/__init__.cpython-313.pyc
-app/aggregator/__pycache__/ai_summary.cpython-313.pyc
-app/aggregator/__pycache__/constants.cpython-313.pyc
-app/aggregator/__pycache__/controller.cpython-313.pyc
-app/aggregator/__pycache__/models.cpython-313.pyc
-app/aggregator/__pycache__/routes.cpython-313.pyc
-app/aggregator/__pycache__/utils.cpython-313.pyc
->>>>>>> JS-branch

@@ -1,7 +1,10 @@
 from typing import Optional
 from app.config import OPENAI_API_KEY, AI_MODEL
 from openai import OpenAI
-from app.aggregator.models import DailySummary  
+from app.daily_summary.models import DailySummary
+import logging
+
+logger = logging.getLogger(__name__)
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -36,12 +39,13 @@ def format_section(summary: DailySummary) -> str:
 
 def generate_daily_summary(summary: DailySummary) -> Optional[str]:
     """
-    Generate a short, friendly AI summary using cleaned `DailySummary` data.
+    Generate a short AI summary from the cleaned DailySummary data using OpenAI.
     """
     try:
         formatted_data = format_section(summary)
 
         if not formatted_data:
+            logger.warning(f"No formatted data available for date={summary.date}")
             return None
 
         prompt = f"""
@@ -63,7 +67,14 @@ Write a short (2-4 sentence) friendly summary in a warm tone, highlighting their
         )
 
         content = response.choices[0].message.content
-        return content.strip() if content else None
+        if content:
+            summary_text = content.strip()
+            logger.info(f"AI summary generated for date={summary.date}")
+            return summary_text
+        else:
+            logger.warning(f"OpenAI returned no content for date={summary.date}")
+            return None
 
-    except Exception:
+    except Exception as e:
+        logger.exception(f"AI summary generation failed for date={summary.date}")
         return None

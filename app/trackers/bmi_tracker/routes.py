@@ -14,7 +14,7 @@ def create_log(log: BMILogsCreate):
 def get_logs(user_id: int, date: Optional[str] = None):
     return get_bmi_logs(user_id, date)
 
-@router.delete("/log/{log_id}")
+@router.delete("/log/{log_id}", response_model=dict)
 def delete_log(log_id: int, user_id: int):
     return remove_bmi_log(log_id, user_id)
 
