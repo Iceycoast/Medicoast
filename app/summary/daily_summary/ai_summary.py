@@ -1,7 +1,7 @@
 from typing import Optional
 from app.config import OPENAI_API_KEY, AI_MODEL
 from openai import OpenAI
-from app.daily_summary.models import DailySummary
+from .models import DailySummary
 import logging
 
 logger = logging.getLogger(__name__)

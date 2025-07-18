@@ -9,7 +9,8 @@ from app.trackers.bmi_tracker.routes import router as bmi_router
 from app.trackers.sleep_tracker.routes import router as sleep_router
 from app.trackers.mood_tracker.routes import router as mood_router
 from app.trackers.medication_tracker.routes import router as medication_router
-from app.daily_summary.routes import router as daily_summary_router
+from app.summary.daily_summary.routes import router as daily_summary_router
+from app.summary.weekly_summary.routes import router as weekly_summary_router
 from app.startup import load_all_schemas
 
 setup_logger()
@@ -29,3 +30,4 @@ app.include_router(sleep_router)
 app.include_router(mood_router)
 app.include_router(medication_router)
 app.include_router(daily_summary_router)
+app.include_router(weekly_summary_router)

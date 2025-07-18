@@ -1,5 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional
+from app.utils.validators import validate_date_format
 
 class DailySummary(BaseModel):
     date: str
@@ -10,3 +11,8 @@ class DailySummary(BaseModel):
     mood: Optional[list[str]] = None
     medications: Optional[list[str]] = None
     ai_summary: Optional[str] = None
+
+    @field_validator('date')
+    @staticmethod
+    def validate_date_format(v:str) -> str:
+        return validate_date_format(v)

@@ -4,7 +4,7 @@ from .ai_summary import generate_daily_summary
 from .db import fetch_logs, save_ai_summary, get_ai_summary
 from .utils import extract_summary_from_logs
 from typing import Any
-from .constants import TRACKER_TABLES
+from app.summary.constants import TRACKER_TABLES
 import logging
 
 logger = logging.getLogger(__name__)
