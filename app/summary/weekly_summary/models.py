@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Any
 from pydantic import BaseModel, field_validator
 from app.utils.validators import validate_date_format
 
@@ -37,12 +37,10 @@ class DailyTrackerSummary(BaseModel):
     # medications 
     medications: Optional[list[MedicationLog]] = None
 
-
     @field_validator('date')
     @staticmethod
     def validate_date_format(v:str) -> str:
         return validate_date_format(v)
-
 
 class WeeklySummaryRequest(BaseModel):
     user_id: int 
@@ -56,4 +54,5 @@ class WeeklySummaryRequest(BaseModel):
 class WeeklySummaryResponse(BaseModel):
     start_date: str
     end_date: str
-    week_logs: list[DailyTrackerSummary]
+    summary: Dict[str, Any]
+    weekly_stats: Dict[str, Any]
