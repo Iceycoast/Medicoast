@@ -74,3 +74,17 @@ app/daily_summary/__pycache__/models.cpython-313.pyc
 app/daily_summary/__pycache__/routes.cpython-313.pyc
 app/daily_summary/__pycache__/utils.cpython-313.pyc
 logs/medicoast.log
+app/summary/__pycache__/constants.cpython-313.pyc
+app/summary/daily_summary/__pycache__/__init__.cpython-313.pyc
+app/summary/daily_summary/__pycache__/ai_summary.cpython-313.pyc
+app/summary/daily_summary/__pycache__/constants.cpython-313.pyc
+app/summary/daily_summary/__pycache__/controller.cpython-313.pyc
+app/summary/daily_summary/__pycache__/db.cpython-313.pyc
+app/summary/daily_summary/__pycache__/models.cpython-313.pyc
+app/summary/daily_summary/__pycache__/routes.cpython-313.pyc
+app/summary/daily_summary/__pycache__/utils.cpython-313.pyc
+app/summary/weekly_summary/__pycache__/__init__.cpython-313.pyc
+app/summary/weekly_summary/__pycache__/controller.cpython-313.pyc
+app/summary/weekly_summary/__pycache__/db.cpython-313.pyc
+app/summary/weekly_summary/__pycache__/models.cpython-313.pyc
+app/summary/weekly_summary/__pycache__/routes.cpython-313.pyc
