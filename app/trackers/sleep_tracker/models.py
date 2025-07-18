@@ -7,13 +7,13 @@ class SleepLogBase(BaseModel):
     wake_time: str = Field(..., description="Please enter the time you woke up: (HH:MM AM/PM)")
 
     @field_validator("date")
-    @classmethod
-    def validate_date_format(cls, v):
+    @staticmethod
+    def validate_date_format(v: str) -> str:
         return validate_date_format(v)
     
     @field_validator("sleep_time", "wake_time")
-    @classmethod
-    def validate_time_fields(cls, v):
+    @staticmethod
+    def validate_time_fields(v: str) -> str:
         return validate_time_format(v)
 
 class SleepLogCreate(SleepLogBase):

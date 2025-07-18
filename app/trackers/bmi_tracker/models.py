@@ -11,8 +11,8 @@ class BMILogsCreate(BMILogsBase):
     date: str = Field(..., description="Enter the date (YYYY-MM-DD)")
 
     @field_validator("date")
-    @classmethod
-    def validate_date_format(cls, v):
+    @staticmethod
+    def validate_date_format(v: str) -> str:
         return validate_date_format(v)
 
 class BMILogsResponse(BMILogsBase):
