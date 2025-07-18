@@ -1,11 +1,17 @@
 import os
 from dotenv import load_dotenv
 
+# Load environment variables from .env
+load_dotenv()
+
 # Automatically create the 'db/' folder if it doesn't exist
 os.makedirs("app/db", exist_ok=True)
 
-# Load environment variables from .env
-load_dotenv()
+
+SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+if not SECRET_KEY:
+    raise RuntimeError("JWT_SECRET_KEY environment variable is not set!")
+
 
 # OpenAI API Key
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

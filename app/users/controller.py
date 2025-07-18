@@ -28,8 +28,7 @@ def register_user(user: UserCreate) -> UserResponse:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(re))
     
     
-def login_user(data:UserLogin) -> UserResponse:
-
+def login_user(data: UserLogin) -> dict:
     try:
         user = db.get_user_by_username(data.username)
     except ValueError as e:
@@ -38,7 +37,7 @@ def login_user(data:UserLogin) -> UserResponse:
     if not verify_password(data.password, user['password']):
         raise HTTPException(status_code=401, detail="Incorrect Password.")
     
-    return UserResponse.model_validate(user)
+    return user  # Return the raw user dict for token creation
 
 
 def check_username_availability(username: str) -> dict:
