@@ -1,6 +1,7 @@
 import sqlite3
 from app.db.database import get_connection
 from .models import UserCreate 
+from typing import Optional
 
 def insert_user_info(register:UserCreate, created_at:str ) -> int:
     conn = get_connection()
@@ -62,5 +63,19 @@ def check_username_availability(username: str) -> bool:
         count = cursor.fetchone()[0]
         return count == 0  # True if username is available, False if taken
     
+    finally:
+        conn.close()
+
+
+def get_user_by_id(user_id: int) -> Optional[dict]:
+    conn = get_connection()
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT * FROM users WHERE user_id = ?", (user_id,))
+        row = cursor.fetchone()
+        if row is None:
+            return None
+        return dict(row)
     finally:
         conn.close()
