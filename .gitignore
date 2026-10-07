@@ -1,90 +1,46 @@
+# Environment variables
 .env
+.env.*
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+logs/
+
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
 .DS_Store
-.vscode/settings.json
-app/users/__pycache__/routes.cpython-313.pyc
-app/users/__pycache__/logic.cpython-313.pyc
-app/db/__pycache__/database.cpython-313.pyc
-app/db/medicoast.db
-app/__pycache__/main.cpython-313.pyc
-.gitignore
-app/__pycache__/config.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/routes.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/logic.cpython-313.pyc
-app/db/__pycache__/init_db.cpython-313.pyc
-.gitignore
-.gitignore
-app/utils/__pycache__/validators.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/logic.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/routes.cpython-313.pyc
-app/__pycache__/__init__.cpython-313.pyc
-app/db/__pycache__/__init__.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/__init__.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/logic.cpython-313.pyc
-.gitignore
-app/trackers/bmi_tracker/__pycache__/routes.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/__init__.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/__init__.cpython-313.pyc
-app/users/__pycache__/__init__.cpython-313.pyc
-app/utils/__pycache__/__init__.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/controller.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/db.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/routes.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/utils.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/ai_advice.cpython-313.pyc
-app/trackers/sleep_tracker/__pycache__/__init__.cpython-313.pyc
-app/trackers/mood_tracker/__pycache__/routes.cpython-313.pyc
-.gitignore
-app/trackers/mood_tracker/__pycache__/controller.cpython-313.pyc
-app/trackers/mood_tracker/__pycache__/ai_utils.cpython-313.pyc
-app/trackers/mood_tracker/__pycache__/__init__.cpython-313.pyc
-.gitignore
-app/trackers/mood_tracker/__pycache__/db.cpython-313.pyc
-.gitignore
-.gitignore
-app/trackers/mood_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/controller.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/controller.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/__init__.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/controller.cpython-313.pyc
-.gitignore
-.gitignore
-app/trackers/water_tracker/__pycache__/controller.cpython-313.pyc
-app/users/__pycache__/controller.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/db.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/bmi_tracker/__pycache__/utils.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/db.cpython-313.pyc
-app/trackers/meals_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/db.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/models.cpython-313.pyc
-app/trackers/medication_tracker/__pycache__/routes.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/db.cpython-313.pyc
-app/trackers/water_tracker/__pycache__/models.cpython-313.pyc
-app/users/__pycache__/db.cpython-313.pyc
-app/users/__pycache__/models.cpython-313.pyc
-app/users/__pycache__/utils.cpython-313.pyc
-app/__pycache__/logger.cpython-313.pyc
-app/daily_summary/__pycache__/__init__.cpython-313.pyc
-app/daily_summary/__pycache__/ai_summary.cpython-313.pyc
-app/daily_summary/__pycache__/constants.cpython-313.pyc
-app/daily_summary/__pycache__/controller.cpython-313.pyc
-app/daily_summary/__pycache__/db.cpython-313.pyc
-app/daily_summary/__pycache__/models.cpython-313.pyc
-app/daily_summary/__pycache__/routes.cpython-313.pyc
-app/daily_summary/__pycache__/utils.cpython-313.pyc
-logs/medicoast.log
-app/summary/__pycache__/constants.cpython-313.pyc
-app/summary/daily_summary/__pycache__/__init__.cpython-313.pyc
-app/summary/daily_summary/__pycache__/ai_summary.cpython-313.pyc
-app/summary/daily_summary/__pycache__/constants.cpython-313.pyc
-app/summary/daily_summary/__pycache__/controller.cpython-313.pyc
-app/summary/daily_summary/__pycache__/db.cpython-313.pyc
-app/summary/daily_summary/__pycache__/models.cpython-313.pyc
-app/summary/daily_summary/__pycache__/routes.cpython-313.pyc
-app/summary/daily_summary/__pycache__/utils.cpython-313.pyc
-app/summary/weekly_summary/__pycache__/__init__.cpython-313.pyc
-app/summary/weekly_summary/__pycache__/controller.cpython-313.pyc
-app/summary/weekly_summary/__pycache__/db.cpython-313.pyc
-app/summary/weekly_summary/__pycache__/models.cpython-313.pyc
-app/summary/weekly_summary/__pycache__/routes.cpython-313.pyc
+
+# Windows
+Thumbs.db
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Alembic
+# Keep migration files tracked.
+# Do NOT ignore the alembic/versions/ directory.
